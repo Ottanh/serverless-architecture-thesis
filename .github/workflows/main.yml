@@ -9,15 +9,15 @@ permissions:
   contents: read
   pages: write
   id-token: write
-  
-env:
-  name: github-pages
-  url: ${{ steps.deployment.outputs.page_url }}
+
 
 jobs:
   # build latex/thesis.tex -> latex/thesis.pdf using pdflatex
   # shell-escape functionality is required by the minted package
   build:
+    env:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     container:
      image: registry.gitlab.utu.fi/tech/soft/thesis/builder:latest
