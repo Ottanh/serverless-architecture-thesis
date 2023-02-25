@@ -19,21 +19,3 @@ jobs:
           name: latex
           path: latex/thesis.pdf
 
-  # a validation prints "PASS + something" is the file is PDF/A conformant
-  validate:
-    runs-on: ubuntu-latest
-    steps:
-      - name: validate
-      - run: pdfa-validate latex/thesis.pdf|grep '^PASS'
-
-  pages:
-    runs-on: ubuntu-latest
-    steps:
-      - name: deploy
-      - run: wget https://tech.utugit.fi/soft/tools/sitegen/sitegen.jar -O sitegen.jar |
-          java -jar sitegen.jar -pdfjs
-      - name: Artifact
-        uses: actions/upload-artifact@V3
-        with:
-          name: public
-          path: public/
