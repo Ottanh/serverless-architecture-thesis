@@ -18,7 +18,7 @@ jobs:
         run: cd latex |
          latexmk -pdf --shell-escape thesis.tex
       - name: Artifact
-        uses: actions/upload-artifact@V3
+        uses: actions/upload-artifact@v3
         with:
           name: latex
           path: latex/thesis.pdf
@@ -45,7 +45,7 @@ jobs:
         run: wget https://tech.utugit.fi/soft/tools/sitegen/sitegen.jar -O sitegen.jar |
           java -jar sitegen.jar -pdfjs
       - name: Artifact
-        uses: actions/upload-artifact@V3
+        uses: actions/upload-artifact@v3
         with:
           name: public
           path: public/
