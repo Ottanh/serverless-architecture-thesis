@@ -13,9 +13,4 @@ jobs:
       - name: build
       - run: cd latex |
          latexmk -pdf --shell-escape thesis.tex
-      - name: Artifact
-        uses: actions/upload-artifact@V3
-        with:
-          name: latex
-          path: latex/thesis.pdf
 
