@@ -20,3 +20,5 @@
 *.ilg
 *.synctex.gz
 _minted-*/
+/Perl-5.36.0-Windows
+*.pdf
