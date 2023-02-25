@@ -12,10 +12,8 @@ permissions:
 
 
 jobs:
-  # build latex/thesis.tex -> latex/thesis.pdf using pdflatex
-  # shell-escape functionality is required by the minted package
   build:
-    env:
+    environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
@@ -40,7 +38,6 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          # Upload entire repository
           path: './public'
       - name: ls
         run: |
