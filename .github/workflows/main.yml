@@ -15,9 +15,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: build
-        run: cd latex |
-         ls -a |
-         latexmk -pdf --shell-escape thesis.tex
+        run: | 
+          cd latex
+          ls -a
+          latexmk -pdf --shell-escape thesis.tex
       - name: Artifact
         uses: actions/upload-artifact@v3
         with:
