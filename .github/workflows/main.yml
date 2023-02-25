@@ -19,15 +19,11 @@ jobs:
           cd latex
           ls -a
           latexmk -pdf --shell-escape thesis.tex
-      - name: Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: latex
-          path: latex/thesis.pdf
       - name: validate
         run: pdfa-validate latex/thesis.pdf|grep '^PASS'
       - name: deploy
-        run: wget https://tech.utugit.fi/soft/tools/sitegen/sitegen.jar -O sitegen.jar |
+        run: |
+          wget https://tech.utugit.fi/soft/tools/sitegen/sitegen.jar -O sitegen.jar
           java -jar sitegen.jar -pdfjs
       - name: Artifact
         uses: actions/upload-artifact@v3
