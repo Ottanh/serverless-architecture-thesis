@@ -22,25 +22,8 @@ jobs:
         with:
           name: latex
           path: latex/thesis.pdf
-
-  # a validation prints "PASS + something" is the file is PDF/A conformant
-  validate:
-    runs-on: ubuntu-latest
-    container:
-     image: registry.gitlab.utu.fi/tech/soft/thesis/builder:latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
       - name: validate
         run: pdfa-validate latex/thesis.pdf|grep '^PASS'
-
-  pages:
-    runs-on: ubuntu-latest
-    container:
-     image: registry.gitlab.utu.fi/tech/soft/thesis/builder:latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
       - name: deploy
         run: wget https://tech.utugit.fi/soft/tools/sitegen/sitegen.jar -O sitegen.jar |
           java -jar sitegen.jar -pdfjs
