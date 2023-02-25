@@ -3,6 +3,12 @@ name: CI/CD
 on:
   push:
     branches: [ master ]
+  
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   # build latex/thesis.tex -> latex/thesis.pdf using pdflatex
@@ -25,15 +31,8 @@ jobs:
         run: |
           wget https://tech.utugit.fi/soft/tools/sitegen/sitegen.jar -O sitegen.jar
           java -jar sitegen.jar -pdfjs
-      - name: Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: public
-          path: public/
       - name: Setup Pages
         uses: actions/configure-pages@v3
-      - name: ls
-        run: ls -a
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
