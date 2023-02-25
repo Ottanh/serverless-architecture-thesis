@@ -38,6 +38,11 @@ jobs:
         with:
           # Upload entire repository
           path: './public'
+      - name: ls
+        run: |
+          ls -a
+          cd public
+          ls -a  
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
