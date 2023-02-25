@@ -10,8 +10,9 @@ jobs:
     container:
      image: registry.gitlab.utu.fi/tech/soft/thesis/builder:latest
     steps:
-      - cd latex
-      - latexmk -pdf --shell-escape thesis.tex
+      - name: build
+      - run: cd latex |
+         latexmk -pdf --shell-escape thesis.tex
       - name: Artifact
         uses: actions/upload-artifact@V3
         with:
@@ -22,18 +23,17 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - pdfa-validate latex/thesis.pdf|grep '^PASS'
-    allow_failure: true
+      - name: validate
+      - run: pdfa-validate latex/thesis.pdf|grep '^PASS'
 
   pages:
     runs-on: ubuntu-latest
     steps:
-      - wget https://tech.utugit.fi/soft/tools/sitegen/sitegen.jar -O sitegen.jar
-      - java -jar sitegen.jar -pdfjs
-    - name: Artifact
-      uses: actions/upload-artifact@V3
-      with:
-        name: public
-        path: public/
-    only:
-      - master
+      - name: deploy
+      - run: wget https://tech.utugit.fi/soft/tools/sitegen/sitegen.jar -O sitegen.jar |
+          java -jar sitegen.jar -pdfjs
+      - name: Artifact
+        uses: actions/upload-artifact@V3
+        with:
+          name: public
+          path: public/
