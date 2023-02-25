@@ -1,22 +1,22 @@
-# due to https://docs.docker.com/docker-hub/download-rate-limit/
-# the texlive image is hosted @ https://gitlab.utu.fi/tech/soft/thesis-builder
+name: CI/CD
 
-container: registry.gitlab.utu.fi/tech/soft/thesis/builder:latest
-
-# build latex/thesis.tex -> latex/thesis.pdf using pdflatex
-# shell-escape functionality is required by the minted package
+on:
+  push:
+    branches: [ master ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+     image: registry.gitlab.utu.fi/tech/soft/thesis/builder:latest
     steps:
       - cd latex
       - latexmk -pdf --shell-escape thesis.tex
-    - name: Artifact
-      uses: actions/upload-artifact@V3
-      with:
-        name: latex
-        path: latex/thesis.pdf
+      - name: Artifact
+        uses: actions/upload-artifact@V3
+        with:
+          name: latex
+          path: latex/thesis.pdf
 
   # a validation prints "PASS + something" is the file is PDF/A conformant
   validate:
