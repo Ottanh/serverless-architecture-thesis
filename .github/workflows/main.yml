@@ -11,6 +11,6 @@ jobs:
      image: registry.gitlab.utu.fi/tech/soft/thesis/builder:latest
     steps:
       - name: build
-      - run: cd latex |
+        run: cd latex |
          latexmk -pdf --shell-escape thesis.tex
 
